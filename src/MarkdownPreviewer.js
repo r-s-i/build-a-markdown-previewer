@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import {marked} from 'marked';
+import ReactMarkdown from 'react-markdown';
 
 
 function MarkdownPreviewer() {
-  const defaultMarkdown = `# One hash
-    ## Two hashes
-    [A link to my super cool website](https://www.robiniversen.com)
+  const defaultMarkdown = `# One hash\n## Two hashes\n[A link to my super cool website](https://www.robiniversen.com)\n- A list item \n\n**VERY IMPORTANT INFO**\n\nHeres some code, \`<div></div>\`, between 2 backticks.\n\n \`\`\`test\`\`\`\n\n> Block Quotes!\n\n![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
 
-    - A list item
-    * Another list item
-
-    **VERY IMPORTANT INFO**
 `;
 
   const [markdown, setMarkdown] = useState(defaultMarkdown);
@@ -21,15 +15,17 @@ function MarkdownPreviewer() {
 
   return (
     <div>
-      <textarea id="editor" value={markdown} onChange={handleChange} />
-      <div id="preview" dangerouslySetInnerHTML={{__html: parseMarkdown(markdown)}} />
+      <textarea 
+        id="editor" 
+        value={markdown} 
+        onChange={handleChange} 
+      />
+      <div id="preview">
+      <ReactMarkdown children={markdown} 
+      /> 
+      </div>
     </div>
   );
 }
-
-
-function parseMarkdown(markdown) {
-    return marked(markdown);
-  }
 
 export {MarkdownPreviewer};
